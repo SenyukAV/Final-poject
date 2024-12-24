@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="DEBUG">
+<Configuration status="debug" strict="true"
+               name="XMLConfigTest" packages="org.apache.logging.log4j.test">
+    <Filter type="ThresholdFilter" level="trace" />
+
     <Appenders>
-        <Console name="LogToConsole" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        <Console name="STDOUT">
+            <Layout type="PatternLayout" pattern="%m %n" />
         </Console>
     </Appenders>
+
     <Loggers>
-        <!-- avoid duplicated logs with additivity=false -->
-        <Logger name="src\test\java\by" level="debug" additivity="false">
-            <AppenderRef ref="LogToConsole"/>
-        </Logger>
-        <Root level="error">
-            <AppenderRef ref="LogToConsole"/>
+        <Root level="DEBUG">
+            <AppenderRef ref="STDOUT" />
         </Root>
     </Loggers>
+
 </Configuration>
