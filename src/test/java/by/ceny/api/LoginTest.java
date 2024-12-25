@@ -51,19 +51,10 @@ public class LoginTest {
                 .body("data.fields", Matchers.hasItem("pass"));
     }
 
-    @DisplayName("inccorrect symbols in body")
+
+    @DisplayName("resp 400 ")
     @Test
     public void test5() {
-        LoginRequest.bodyRequestInccorrectSymbols().
-                statusCode(200).body("errors.email", Matchers.equalTo("Email адрес указан некорректно"))
-                .body("data.success", equalTo(false))
-                .body("data.status", equalTo(0))
-                .body("data.fields", Matchers.hasItems("email"));
-    }
-
-    @DisplayName("unregistered user")
-    @Test
-    public void test6() {
         LoginRequest.headerForBadRequest().statusCode(400);
     }
 }

@@ -8,8 +8,8 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class LoginRequest {
-    public static final String URL_LOGIN = "https://edc.sale/ru/user/login";
 
+    public static final String URL_LOGIN = "https://edc.sale/ru/user/login";
     public static Map<String, String> getHeader() {
         Map<String, String> haveHeader = new HashMap<>();
         haveHeader.put("accept", "application/json, text/javascript, */*; q=0.01");
@@ -108,6 +108,4 @@ public class LoginRequest {
                 then().
                 log().all();
     }
-
-
 }
