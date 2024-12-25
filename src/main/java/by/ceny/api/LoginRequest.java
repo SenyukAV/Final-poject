@@ -1,8 +1,11 @@
 package by.ceny.api;
 
 import by.ceny.ui.domain.SiteData;
+import io.restassured.response.ValidatableResponse;
 import java.util.HashMap;
 import java.util.Map;
+
+import static io.restassured.RestAssured.given;
 
 public class LoginRequest {
     public static final String URL_LOGIN = "https://edc.sale/ru/user/login";
@@ -45,4 +48,66 @@ public class LoginRequest {
     public static String getBodyRequestInccorrectSymbols() {
         return "back=https%3A%2F%2Fedc.sale%2Fru%2Fby%2F&email=!^)k%40gmail.com&pass=!^)qwerrt&uufp=22adbd9c609048fb66132d8ca79451c6&";
     }
+
+    public static ValidatableResponse normalRequest() {
+        return given().
+                body(LoginRequest.getBodyRequestFull()).
+                headers(LoginRequest.getHeader()).
+                when().
+                post(LoginRequest.URL_LOGIN).
+                then().
+                log().all();
+    }
+
+
+    public static ValidatableResponse noDataInBody() {
+        return given().
+                headers(LoginRequest.getHeader()).
+                when().
+                post(LoginRequest.URL_LOGIN).
+                then().
+                log().all();
+    }
+
+    public static ValidatableResponse noEmailInBody() {
+        return given().
+                body(LoginRequest.getBodyRequestNoEmail()).
+                headers(LoginRequest.getHeader()).
+                when().
+                post(LoginRequest.URL_LOGIN).
+                then().
+                log().all();
+    }
+
+    public static ValidatableResponse bodyRequestNoPassword() {
+        return given().
+                body(LoginRequest.getBodyRequestNoPassword()).
+                headers(LoginRequest.getHeader()).
+                when().
+                post(LoginRequest.URL_LOGIN).
+                then().
+                log().all();
+    }
+
+    public static ValidatableResponse bodyRequestInccorrectSymbols() {
+        return given().
+                body(LoginRequest.getBodyRequestNoPassword()).
+                headers(LoginRequest.getHeader()).
+                when().
+                post(LoginRequest.URL_LOGIN).
+                then().
+                log().all();
+    }
+
+    public static ValidatableResponse headerForBadRequest() {
+        return given().
+                body(LoginRequest.getBodyRequestFull()).
+                headers(LoginRequest.getHeaderForBadRequest()).
+                when().
+                post(LoginRequest.URL_LOGIN).
+                then().
+                log().all();
+    }
+
+
 }
